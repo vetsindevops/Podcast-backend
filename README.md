@@ -1,2 +1,5 @@
 # Podcast-backend
-## Problem is once we record a podcast it will be a repetitive process distributing the podcast. So we should automate the process.
+
+## Current RSS Feed - https://anchor.fm/s/f0f53fd4/podcast/rss
+
+Goal is to streamline recording and distribution
