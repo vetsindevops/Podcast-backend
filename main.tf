@@ -1,29 +1,20 @@
 # main.tf
 
+# AWS
 provider "aws" {
   region = "us-east-1"  # Set your desired AWS region
 }
 
-resource "aws_vpc" "example" {
-  cidr_block = "10.0.0.0/16"
-  enable_dns_support = true
-  enable_dns_hostnames = true
+resource "aws_s3_bucket" "example" {
+  bucket = "example-aws-bucket"
+  acl    = "private"
 
   tags = {
-    Name = "example-vpc"
+    Name = "example-aws-bucket"
   }
 }
 
-provider "google" {
-  credentials = file("<PATH_TO_GOOGLE_CREDENTIALS_JSON>")
-  project     = "<YOUR_GOOGLE_PROJECT_ID>"
-  region      = "us-central1"  # Set your desired GCP region
-}
-
-resource "google_compute_network" "example" {
-  name = "example-network"
-}
-
+# Azure
 provider "azurerm" {
   features = {}
 }
@@ -33,22 +24,40 @@ resource "azurerm_resource_group" "example" {
   location = "East US"  # Set your desired Azure region
 }
 
-resource "azurerm_virtual_network" "example" {
-  name                = "example-vnet"
-  address_space       = ["10.0.0.0/16"]
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+resource "azurerm_storage_account" "example" {
+  name                     = "examplestorageaccount"
+  resource_group_name      = azurerm_resource_group.example.name
+  location                 = azurerm_resource_group.example.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
 }
 
-output "aws_vpc_id" {
-  value = aws_vpc.example.id
+# GCP
+provider "google" {
+  credentials = file("<PATH_TO_GOOGLE_CREDENTIALS_JSON>")
+  project     = "<YOUR_GOOGLE_PROJECT_ID>"
+  region      = "us-central1"  # Set your desired GCP region
 }
 
-output "gcp_network_id" {
-  value = google_compute_network.example.self_link
+resource "google_storage_bucket" "example" {
+  name     = "example-gcp-bucket"
+  location = "US"
+  storage_class = "STANDARD"
+
+  labels = {
+    environment = "production"
+  }
 }
 
-output "azure_vnet_id" {
-  value = azurerm_virtual_network.example.id
+output "aws_s3_bucket_name" {
+  value = aws_s3_bucket.example.bucket
+}
+
+output "azure_storage_account_name" {
+  value = azurerm_storage_account.example.name
+}
+
+output "gcp_storage_bucket_name" {
+  value = google_storage_bucket.example.name
 }
 
