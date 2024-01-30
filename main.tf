@@ -16,7 +16,7 @@ resource "aws_s3_bucket" "example" {
 
 # Azure
 provider "azurerm" {
-  features = {}
+  # No need to explicitly specify the features block
 }
 
 resource "azurerm_resource_group" "example" {
