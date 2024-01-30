@@ -9,6 +9,7 @@ data "vault_generic_secret" "aws_credentials" {
 }
 
 provider "aws" {
+  alias      = "vault"
   access_key = data.vault_generic_secret.aws_credentials.data["data"]["access_key"]
   secret_key = data.vault_generic_secret.aws_credentials.data["data"]["secret_key"]
   region     = data.vault_generic_secret.aws_credentials.data["data"]["region"]
