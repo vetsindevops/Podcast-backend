@@ -10,3 +10,4 @@ provider "google" {
   region      = "us-central1"
 }
 
+#The path parameter in the data "vault_generic_secret" block should point the creds in Vault
