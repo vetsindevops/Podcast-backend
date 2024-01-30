@@ -34,7 +34,7 @@ resource "azurerm_storage_account" "example" {
 
 # GCP
 provider "google" {
-  credentials = file("<PATH_TO_GOOGLE_CREDENTIALS_JSON>")
+#  credentials = file("<PATH_TO_GOOGLE_CREDENTIALS_JSON>") --> Option but stored in Vault for prod
   project     = "<YOUR_GOOGLE_PROJECT_ID>"
   region      = "us-central1"  # Set your desired GCP region
 }
